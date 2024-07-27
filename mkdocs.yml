@@ -7,10 +7,12 @@ theme:
   name: material
   features:
     - navigation.footer
+    - content.code.copy
 
 nav:
   - index.md
-  - installing.md
+  - installation.md
+  - getting-started.md
   - api.md
   - examples.md
 

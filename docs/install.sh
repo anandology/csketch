@@ -21,7 +21,7 @@ END
 
 echo
 echo "-> Downloading and installing csketch $VERSION"
-curl --no-progress-meter -L $URL | tar xvzf -
+curl -sSf -L $URL | tar xvzf -
 
 echo
 echo "-> Building the library"
