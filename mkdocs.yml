@@ -1,5 +1,8 @@
 site_name: CSketch
 
+site_url: https://anandology.github.io/csketch/
+repo_url: https://github.com/anandology/csketch/
+
 theme:
   name: material
   features:
