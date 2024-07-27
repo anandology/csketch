@@ -4,6 +4,11 @@ csketch is a simple library for drawing shapes in C. It renders the shapes into 
 
 The primary goal of this library is to teach C-programming course to young aspiring programmers.
 
+Here are some images generated with csketch.
+
+<img src="examples/hello-sketch.svg" height='200'>  <img src="examples/random-circles.svg" height='200' style="display: inline;" >  <img src="examples/stringart.svg" height='200'> 
+
+
 ## Coordinates
 
 The library uses the conventions of the traditional coordinate system used in math. The center point of the canvas is (0, 0) and the X axis grows towards right and the Y grows towards up.
