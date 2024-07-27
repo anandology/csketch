@@ -14,7 +14,7 @@ nav:
   - installation.md
   - getting-started.md
   - api.md
-  - examples.md
+  - gallery/index.md
 
 markdown_extensions:
   - pymdownx.superfences
