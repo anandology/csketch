@@ -1,0 +1,18 @@
+site_name: CSketch
+
+theme:
+  name: material
+  features:
+    - navigation.footer
+
+nav:
+  - index.md
+  - installing.md
+  - api.md
+  - examples.md
+
+markdown_extensions:
+  - pymdownx.superfences
+
+extra_css:
+  - css/csketch.css
