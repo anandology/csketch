@@ -54,8 +54,16 @@ void set_stroke(char * color);
 void set_fill(char *color);
 void set_stroke_width(float width);
 
+// Draws a line from point (x1, y1) to point (x2, y2)
 void draw_line(float x1, float y1, float x2, float y2);
+
+// Draws a circle with (x, y) as the center and with radius r
 void draw_circle(float x, float y, float r);
+
+// Draws a rectangle with (x, y) as the center point
+// and a width of w and a height of h
+void draw_rectangle(float x, float y, float w, float h);
+
 void draw_grid();
 void display_shapes();
 void save_sketch(char *filename);

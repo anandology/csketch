@@ -62,6 +62,15 @@ shape_t * new_circle(float x, float y, float r) {
     return new_shape(SHAPE_CIRCLE, data);
 }
 
+shape_t * new_rectangle(float x, float y, float w, float h) {
+    struct rectangle_data *data = (struct rectangle_data *)malloc(sizeof(struct rectangle_data));
+    data->x = x;
+    data->y = y;
+    data->w = w;
+    data->h = h;
+    return new_shape(SHAPE_RECTANGLE, data);
+}
+
 void display_shapes() {
     shape_t *s = shapes_list;
 
@@ -79,6 +88,13 @@ void display_shapes() {
                             s->circle_data->x,
                             s->circle_data->y,
                             s->circle_data->r);
+                break;
+            case SHAPE_RECTANGLE:
+                printf("rectangle(%0.2f, %0.2f, %0.2f %0.2f)\n",
+                            s->rectangle_data->x,
+                            s->rectangle_data->y,
+                            s->rectangle_data->w,
+                            s->rectangle_data->h);
                 break;
         }
         s = s->next;
@@ -99,9 +115,13 @@ void draw_line(float x1, float y1, float x2, float y2) {
     add_shape(s);
 }
 
-
 void draw_circle(float x, float y, float r) {
     shape_t *s = new_circle(x, y, r);
+    add_shape(s);
+}
+
+void draw_rectangle(float x, float y, float w, float h) {
+    shape_t *s = new_rectangle(x, y, w, h);
     add_shape(s);
 }
 
@@ -121,6 +141,19 @@ void write_shape(FILE* fp, shape_t *shape) {
                 shape->circle_data->x,
                 shape->circle_data->y,
                 shape->circle_data->r,
+                shape->style.stroke,
+                shape->style.fill,
+                shape->style.stroke_width);
+            break;
+        case SHAPE_RECTANGLE:
+            float x = shape->rectangle_data->x - shape->rectangle_data->w / 2;
+            float y = shape->rectangle_data->y - shape->rectangle_data->h / 2;
+
+            fprintf(fp, "  <rect x='%f' y='%f' width='%f' height='%f' stroke='%s' fill='%s' stroke-width='%f'/>\n",
+                x,
+                y,
+                shape->rectangle_data->w,
+                shape->rectangle_data->h,
                 shape->style.stroke,
                 shape->style.fill,
                 shape->style.stroke_width);
