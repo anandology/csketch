@@ -128,6 +128,17 @@ void write_shape(FILE* fp, shape_t *shape) {
     }
 }
 
+// Write a list of shapes to an SVG file
+void write_shapes(FILE *fp, shape_t *shapes_list) {
+    // since shapes_list is a linked list, the last shape with be at the head.
+    // Using a recursive approach to write the tail first and the head
+    // so that we get the order as expected.
+    if (shapes_list != NULL) {
+        write_shapes(fp, shapes_list->next);
+        write_shape(fp, shapes_list);
+    }
+}
+
 void save_sketch(char *filename) {
     FILE *fp = fopen(filename, "w");
 
@@ -135,8 +146,6 @@ void save_sketch(char *filename) {
     fprintf(fp, "<svg version='1.1' viewBox='-300 -300 600 600' width='600' height='600'  xmlns='http://www.w3.org/2000/svg'>\n");
     fprintf(fp, "<rect x='-300' y='-300' width='100%%' height='100%%' fill='white' />");
     fprintf(fp, "<g transform='scale(1, -1)'>\n");
-    for (shape_t *s=shapes_list; s != NULL; s=s->next) {
-        write_shape(fp, s);
-    }
+    write_shapes(fp, shapes_list);
     fprintf(fp, "</g></svg>");
 }
