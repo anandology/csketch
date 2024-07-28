@@ -183,3 +183,17 @@ void save_sketch(char *filename) {
     fprintf(fp, "</g></svg>");
     fclose(fp);
 }
+
+void clear_sketch() {
+    // clear shapes
+    shape_t *shapes = shapes_list;
+    shapes_list = NULL;
+
+    // free all the allocated shapes
+    while (shapes) {
+        shape_t *s = shapes;
+        shapes = shapes->next;
+        free(s->line_data);
+        free(s);
+    }
+}
