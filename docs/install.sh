@@ -5,7 +5,7 @@
 
 set -e
 
-VERSION=0.1.0
+VERSION=0.1.1
 URL="https://github.com/anandology/csketch/releases/download/v$VERSION/csketch-$VERSION.tar.gz"
 
 echo "---"

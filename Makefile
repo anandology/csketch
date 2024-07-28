@@ -1,5 +1,5 @@
 
-CSKETCH_VERSION=0.1.0
+CSKETCH_VERSION=0.1.1
 
 .PHONY: default build docs
 
@@ -15,10 +15,12 @@ images:
 	cd docs/images && make
 
 package:
-	mkdir -p dist
+	mkdir -p dist/package
 	cd sketch && make clean
+	cp -r sketch examples/circle.c dist/package/
+	cp  Makefile.sample dist/package/Makefile
 	-rf -f dist/csketch-$(CSKETCH_VERSION).zip dist/csketch-$(CSKETCH_VERSION).tar.gz
-	zip -r dist/csketch-$(CSKETCH_VERSION).zip sketch
-	tar cvzf dist/csketch-$(CSKETCH_VERSION).tar.gz sketch
+	cd dist/package && zip -r ../csketch-$(CSKETCH_VERSION).zip *
+	cd dist/package && tar cvzf ../csketch-$(CSKETCH_VERSION).tar.gz *
 	cd sketch && make
 
