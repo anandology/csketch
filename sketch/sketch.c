@@ -181,4 +181,5 @@ void save_sketch(char *filename) {
     fprintf(fp, "<g transform='scale(1, -1)'>\n");
     write_shapes(fp, shapes_list);
     fprintf(fp, "</g></svg>");
+    fclose(fp);
 }
