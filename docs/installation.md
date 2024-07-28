@@ -3,13 +3,13 @@
 To download and install sketch, please run the following command:
 
 ```bash
-curl https://anandology.github.io/csketch/install.sh | bash -
+curl https://anandology.github.io/csketch/install.sh | bash
 ```
 
 When you run it you'll see an output like this:
 
 ```text
-$ curl https://anandology.github.io/csketch/install.sh | bash -
+$ curl https://anandology.github.io/csketch/install.sh | bash
 ---
          __        __       __
    _____/ /_____  / /______/ /_
