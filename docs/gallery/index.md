@@ -1,3 +1,7 @@
+---
+hide:
+  - toc
+---
 
 # Gallery
 
@@ -30,9 +34,3 @@
         <img src="images/flag-of-italy.svg">
     </a>
 </div>
-
-<style type="text/css">
-.md-sidebar--secondary {
-  display: none !important;
-}
-</style>
