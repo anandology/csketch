@@ -9,26 +9,31 @@ char *stroke = "black";
 char *fill = "none";
 float stroke_width = 1.0;
 
-void set_stroke(char *color) {
+void set_stroke(char *color)
+{
     stroke = color;
 }
 
-void set_fill(char *color) {
+void set_fill(char *color)
+{
     fill = color;
 }
 
-void set_stroke_width(float width) {
+void set_stroke_width(float width)
+{
     stroke_width = width;
 }
 
 shape_t *shapes_list = NULL;
 
-void add_shape(shape_t *shape) {
+void add_shape(shape_t *shape)
+{
     shape->next = shapes_list;
     shapes_list = shape;
 }
 
-shape_t *new_shape(int type, void *shape_data) {
+shape_t *new_shape(int type, void *shape_data)
+{
     shape_t *s = (shape_t *)malloc(sizeof(shape_t));
 
     s->type = type;
@@ -43,7 +48,8 @@ shape_t *new_shape(int type, void *shape_data) {
     return s;
 }
 
-shape_t * new_line(float x1, float y1, float x2, float y2) {
+shape_t *new_line(float x1, float y1, float x2, float y2)
+{
     struct line_data *data = (struct line_data *)malloc(sizeof(struct line_data));
 
     data->x1 = x1;
@@ -54,7 +60,8 @@ shape_t * new_line(float x1, float y1, float x2, float y2) {
     return new_shape(SHAPE_LINE, data);
 }
 
-shape_t * new_circle(float x, float y, float r) {
+shape_t *new_circle(float x, float y, float r)
+{
     struct circle_data *data = (struct circle_data *)malloc(sizeof(struct circle_data));
     data->x = x;
     data->y = y;
@@ -62,7 +69,8 @@ shape_t * new_circle(float x, float y, float r) {
     return new_shape(SHAPE_CIRCLE, data);
 }
 
-shape_t * new_rectangle(float x, float y, float w, float h) {
+shape_t *new_rectangle(float x, float y, float w, float h)
+{
     struct rectangle_data *data = (struct rectangle_data *)malloc(sizeof(struct rectangle_data));
     data->x = x;
     data->y = y;
@@ -71,85 +79,95 @@ shape_t * new_rectangle(float x, float y, float w, float h) {
     return new_shape(SHAPE_RECTANGLE, data);
 }
 
-void display_shapes() {
+void display_shapes()
+{
     shape_t *s = shapes_list;
 
-    while (s != NULL) {
-        switch (s->type) {
-            case SHAPE_LINE:
-                printf("line(%0.2f, %0.2f, %0.2f, %0.2f)\n",
-                            s->line_data->x1,
-                            s->line_data->y1,
-                            s->line_data->x2,
-                            s->line_data->y2);
-                break;
-            case SHAPE_CIRCLE:
-                printf("circle(%0.2f, %0.2f, %0.2f)\n",
-                            s->circle_data->x,
-                            s->circle_data->y,
-                            s->circle_data->r);
-                break;
-            case SHAPE_RECTANGLE:
-                printf("rectangle(%0.2f, %0.2f, %0.2f %0.2f)\n",
-                            s->rectangle_data->x,
-                            s->rectangle_data->y,
-                            s->rectangle_data->w,
-                            s->rectangle_data->h);
-                break;
+    while (s != NULL)
+    {
+        switch (s->type)
+        {
+        case SHAPE_LINE:
+            printf("line(%0.2f, %0.2f, %0.2f, %0.2f)\n",
+                   s->line_data->x1,
+                   s->line_data->y1,
+                   s->line_data->x2,
+                   s->line_data->y2);
+            break;
+        case SHAPE_CIRCLE:
+            printf("circle(%0.2f, %0.2f, %0.2f)\n",
+                   s->circle_data->x,
+                   s->circle_data->y,
+                   s->circle_data->r);
+            break;
+        case SHAPE_RECTANGLE:
+            printf("rectangle(%0.2f, %0.2f, %0.2f %0.2f)\n",
+                   s->rectangle_data->x,
+                   s->rectangle_data->y,
+                   s->rectangle_data->w,
+                   s->rectangle_data->h);
+            break;
         }
         s = s->next;
     }
 }
 
-void draw_grid() {
+void draw_grid()
+{
     set_stroke("gray");
-    for (int i=-300; i<300; i+=100) {
+    for (int i = -300; i < 300; i += 100)
+    {
         draw_line(i, -300, i, 300);
         draw_line(-300, i, 300, i);
     }
     set_stroke("black");
 }
 
-void draw_line(float x1, float y1, float x2, float y2) {
+void draw_line(float x1, float y1, float x2, float y2)
+{
     shape_t *s = new_line(x1, y1, x2, y2);
     add_shape(s);
 }
 
-void draw_circle(float x, float y, float r) {
+void draw_circle(float x, float y, float r)
+{
     shape_t *s = new_circle(x, y, r);
     add_shape(s);
 }
 
-void draw_rectangle(float x, float y, float w, float h) {
+void draw_rectangle(float x, float y, float w, float h)
+{
     shape_t *s = new_rectangle(x, y, w, h);
     add_shape(s);
 }
 
-void write_shape(FILE* fp, shape_t *shape) {
-    switch (shape->type) {
-        case SHAPE_LINE:
-            fprintf(fp, "  <line x1='%f' y1='%f' x2='%f' y2='%f' stroke='%s' stroke-width='%f'/>\n",
+void write_shape(FILE *fp, shape_t *shape)
+{
+    switch (shape->type)
+    {
+    case SHAPE_LINE:
+        fprintf(fp, "  <line x1='%f' y1='%f' x2='%f' y2='%f' stroke='%s' stroke-width='%f'/>\n",
                 shape->line_data->x1,
                 shape->line_data->y1,
                 shape->line_data->x2,
                 shape->line_data->y2,
                 shape->style.stroke,
                 shape->style.stroke_width);
-            break;
-        case SHAPE_CIRCLE:
-            fprintf(fp, "  <circle cx='%f' cy='%f' r='%f' stroke='%s' fill='%s' stroke-width='%f'/>\n",
+        break;
+    case SHAPE_CIRCLE:
+        fprintf(fp, "  <circle cx='%f' cy='%f' r='%f' stroke='%s' fill='%s' stroke-width='%f'/>\n",
                 shape->circle_data->x,
                 shape->circle_data->y,
                 shape->circle_data->r,
                 shape->style.stroke,
                 shape->style.fill,
                 shape->style.stroke_width);
-            break;
-        case SHAPE_RECTANGLE:
-            float x = shape->rectangle_data->x - shape->rectangle_data->w / 2;
-            float y = shape->rectangle_data->y - shape->rectangle_data->h / 2;
+        break;
+    case SHAPE_RECTANGLE:
+        float x = shape->rectangle_data->x - shape->rectangle_data->w / 2;
+        float y = shape->rectangle_data->y - shape->rectangle_data->h / 2;
 
-            fprintf(fp, "  <rect x='%f' y='%f' width='%f' height='%f' stroke='%s' fill='%s' stroke-width='%f'/>\n",
+        fprintf(fp, "  <rect x='%f' y='%f' width='%f' height='%f' stroke='%s' fill='%s' stroke-width='%f'/>\n",
                 x,
                 y,
                 shape->rectangle_data->w,
@@ -157,22 +175,25 @@ void write_shape(FILE* fp, shape_t *shape) {
                 shape->style.stroke,
                 shape->style.fill,
                 shape->style.stroke_width);
-            break;
+        break;
     }
 }
 
 // Write a list of shapes to an SVG file
-void write_shapes(FILE *fp, shape_t *shapes_list) {
+void write_shapes(FILE *fp, shape_t *shapes_list)
+{
     // since shapes_list is a linked list, the last shape with be at the head.
     // Using a recursive approach to write the tail first and the head
     // so that we get the order as expected.
-    if (shapes_list != NULL) {
+    if (shapes_list != NULL)
+    {
         write_shapes(fp, shapes_list->next);
         write_shape(fp, shapes_list);
     }
 }
 
-void save_sketch(char *filename) {
+void save_sketch(char *filename)
+{
     FILE *fp = fopen(filename, "w");
 
     fprintf(fp, "<?xml version='1.0' standalone='no'?>\n");
@@ -184,13 +205,15 @@ void save_sketch(char *filename) {
     fclose(fp);
 }
 
-void clear_sketch() {
+void clear_sketch()
+{
     // clear shapes
     shape_t *shapes = shapes_list;
     shapes_list = NULL;
 
     // free all the allocated shapes
-    while (shapes) {
+    while (shapes)
+    {
         shape_t *s = shapes;
         shapes = shapes->next;
         free(s->line_data);
