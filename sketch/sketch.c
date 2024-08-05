@@ -143,6 +143,7 @@ void draw_rectangle(float x, float y, float w, float h)
 
 void write_shape(FILE *fp, shape_t *shape)
 {
+    float x, y;
     switch (shape->type)
     {
     case SHAPE_LINE:
@@ -164,8 +165,8 @@ void write_shape(FILE *fp, shape_t *shape)
                 shape->style.stroke_width);
         break;
     case SHAPE_RECTANGLE:
-        float x = shape->rectangle_data->x - shape->rectangle_data->w / 2;
-        float y = shape->rectangle_data->y - shape->rectangle_data->h / 2;
+        x = shape->rectangle_data->x - shape->rectangle_data->w / 2;
+        y = shape->rectangle_data->y - shape->rectangle_data->h / 2;
 
         fprintf(fp, "  <rect x='%f' y='%f' width='%f' height='%f' stroke='%s' fill='%s' stroke-width='%f'/>\n",
                 x,
