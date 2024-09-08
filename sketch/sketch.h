@@ -67,6 +67,8 @@ void draw_rectangle(float x, float y, float w, float h);
 void draw_grid();
 void display_shapes();
 
+void set_sketch_size(int new_width, int new_height);
+
 // saves the sketch into a file
 void save_sketch(char *filename);
 

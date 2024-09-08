@@ -193,13 +193,22 @@ void write_shapes(FILE *fp, shape_t *shapes_list)
     }
 }
 
+int width = 600;
+int height = 600;
+
+void set_sketch_size(int new_width, int new_height)
+{
+    height = new_height;
+    width = new_width;
+}
+
 void save_sketch(char *filename)
 {
     FILE *fp = fopen(filename, "w");
 
     fprintf(fp, "<?xml version='1.0' standalone='no'?>\n");
-    fprintf(fp, "<svg version='1.1' viewBox='-300 -300 600 600' width='600' height='600'  xmlns='http://www.w3.org/2000/svg'>\n");
-    fprintf(fp, "<rect x='-300' y='-300' width='100%%' height='100%%' fill='white' />");
+    fprintf(fp, "<svg version='1.1' viewBox='-%d -%d %d %d' width='%d' height='%d'  xmlns='http://www.w3.org/2000/svg'>\n", width / 2, height / 2, width, height, width, height);
+    fprintf(fp, "<rect x='-%d' y='-%d' width='100%%' height='100%%' fill='white' />", width / 2, height / 2);
     fprintf(fp, "<g transform='scale(1, -1)'>\n");
     write_shapes(fp, shapes_list);
     fprintf(fp, "</g></svg>");
