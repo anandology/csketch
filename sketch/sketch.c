@@ -114,6 +114,7 @@ void display_shapes()
     }
 }
 
+
 void draw_grid()
 {
     set_stroke("gray");
@@ -121,7 +122,7 @@ void draw_grid()
     {
         draw_line(-sketch_width, i, sketch_width, i);
     }
-    for (int j = -sketch_width; j < sketch_width; j += 100)
+    for (int j = -sketch_width/2; j < sketch_width/2; j += 100)
     {
         draw_line(j, -sketch_height, j, sketch_height);
     }
