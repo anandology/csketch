@@ -67,6 +67,15 @@ void draw_rectangle(float x, float y, float w, float h);
 void draw_grid();
 void display_shapes();
 
+// sets the width and height of the svg
+void set_sketch_size(int width, int height);
+
+// returns the current value of sketch_width
+int get_sketch_width();
+
+//returns the current value of sketch_height
+int get_sketch_height();
+
 // saves the sketch into a file
 void save_sketch(char *filename);
 

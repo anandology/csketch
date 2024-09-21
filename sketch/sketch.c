@@ -8,6 +8,8 @@
 char *stroke = "black";
 char *fill = "none";
 float stroke_width = 1.0;
+int sketch_width = 600;
+int sketch_height = 600;
 
 void set_stroke(char *color)
 {
@@ -112,13 +114,17 @@ void display_shapes()
     }
 }
 
+
 void draw_grid()
 {
     set_stroke("gray");
-    for (int i = -300; i < 300; i += 100)
+    for (int i = -sketch_height / 2; i < sketch_height / 2; i += 100)
     {
-        draw_line(i, -300, i, 300);
-        draw_line(-300, i, 300, i);
+        draw_line(-sketch_width, i, sketch_width, i);
+    }
+    for (int j = -sketch_width/2; j < sketch_width/2; j += 100)
+    {
+        draw_line(j, -sketch_height, j, sketch_height);
     }
     set_stroke("black");
 }
@@ -193,13 +199,27 @@ void write_shapes(FILE *fp, shape_t *shapes_list)
     }
 }
 
+void set_sketch_size(int width, int height)
+{
+    sketch_height = height;
+    sketch_width = width;
+}
+
+int get_sketch_width()
+{
+    return sketch_width;
+}
+int get_sketch_height()
+{
+    return sketch_height;
+}
 void save_sketch(char *filename)
 {
     FILE *fp = fopen(filename, "w");
 
     fprintf(fp, "<?xml version='1.0' standalone='no'?>\n");
-    fprintf(fp, "<svg version='1.1' viewBox='-300 -300 600 600' width='600' height='600'  xmlns='http://www.w3.org/2000/svg'>\n");
-    fprintf(fp, "<rect x='-300' y='-300' width='100%%' height='100%%' fill='white' />");
+    fprintf(fp, "<svg version='1.1' viewBox='-%d -%d %d %d' width='%d' height='%d'  xmlns='http://www.w3.org/2000/svg'>\n", sketch_width / 2, sketch_height / 2, sketch_width, sketch_height, sketch_width, sketch_height);
+    fprintf(fp, "<rect x='-%d' y='-%d' width='100%%' height='100%%' fill='white' />", sketch_width / 2, sketch_height / 2);
     fprintf(fp, "<g transform='scale(1, -1)'>\n");
     write_shapes(fp, shapes_list);
     fprintf(fp, "</g></svg>");
