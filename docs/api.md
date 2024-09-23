@@ -17,6 +17,12 @@ File functions:
 
 * [`save_sketch`](#save_sketch)
 
+Sketch Size:
+
+* [`set_sketch_size`](#set_sketch_size)
+* [`get_sketch_width`](#get_sketch_width)
+* [`get_sketch_height`](#get_sketch_height)
+
 ## `draw_line`
 
 ```c
@@ -133,6 +139,74 @@ save_sketch("circle.svg");
 ```
 
 <img class="sketch" src="../images/circle.svg" alt="circle.svg">
+
+
+
+## Sketch Size
+
+By default the size of the sketch is set to `600x600`. You can change that by calling the `set_sketch_size` function. The current sketch size can be found by calling `get_sketch_width` and `get_sketch_height` functions.
+
+### `set_sketch_size`
+
+```c
+void set_sketch_size(int width, int height);
+```
+
+Sets the size of the sketch.
+
+```c
+// set the sketch width to 600 and height to 200.
+set_sketch_size(600, 200);
+
+draw_circle(-200, 0, 100);
+draw_circle(0, 0, 100);
+draw_circle(200, 0, 100);
+
+save_sketch("three-circle.svg");
+```
+
+<img class="sketch sketch-sm" src="../images/set-sketch-size.svg" alt="three-circles.svg">
+
+### `get_sketch_width`
+
+```c
+int get_sketch_width();
+```
+
+Returns the curent sketch width.
+
+```c
+int w;
+
+set_sketch_size(600, 200);
+
+// draw a horizontal line
+w = get_sketch_width();
+draw_line(-w/2, 0, w/2, 0);
+```
+
+<img class="sketch sketch-sm" src="../images/get-sketch-width.svg" alt="get-sketch-width.svg">
+
+
+### `get_sketch_height`
+
+```c
+int get_sketch_height();
+```
+
+Returns the curent sketch height.
+
+```c
+int h;
+
+set_sketch_size(600, 200);
+
+// draw a vertical line
+h = get_sketch_height();
+draw_line(0, -h/2, 0, h/2);
+```
+
+<img class="sketch sketch-sm" src="../images/get-sketch-height.svg" alt="get-sketch-height.svg">
 
 
 ## Colors

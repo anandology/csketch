@@ -1,7 +1,7 @@
 
 SOURCES=$(wildcard *.c)
 
-EXE_TARGETS=$(SOURCES:%.c=%)
+EXE_TARGETS=$(SOURCES:%.c=bin/%)
 SVG_TARGETS=$(SOURCES:%.c=%.svg)
 TARGETS=$(SVG_TARGETS) $(EXE_TARGETS)
 
@@ -12,10 +12,11 @@ CC=gcc -I$(SKETCH_PATH) -L $(SKETCH_PATH)
 
 default: $(TARGETS)
 
-%: %.c
+bin/%: %.c
+	@mkdir -p bin
 	$(CC) $<  -lm -l sketch -o $@
 
-%.svg: %
+%.svg: bin/%
 	./$<
 
 clean:
