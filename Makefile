@@ -1,5 +1,5 @@
 
-CSKETCH_VERSION=0.1.1
+CSKETCH_VERSION=0.1.2
 
 .PHONY: default build docs
 
@@ -15,6 +15,7 @@ images:
 	cd docs/images && make
 
 package:
+	-rm -f dist/*
 	mkdir -p dist/package
 	cd sketch && make clean
 	cp -r sketch examples/circle.c dist/package/
